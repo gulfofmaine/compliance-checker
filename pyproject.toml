@@ -49,7 +49,8 @@ dependencies = [
   "pendulum>=1.2.4",
   "pygeoif>=0.6",
   "pyproj>=2.2.1",
-  "pyudunits2; sys_platform=='emscripten'",
+  "pyudunits2>=0.1",
+  # "pyudunits2; sys_platform=='emscripten'",
   "regex>=2017.7.28",
   "requests>=2.2.1",
   "setuptools>=15",
@@ -151,3 +152,53 @@ filterwarnings = [
   "ignore:unclosed database in",                                           # Not sure what is causing this one, only happens in Python 3.13.
   "ignore:unclosed file",                                                  # Should make Windows + Python 3.10 and 3.11 pass, we should check when this warning was triggered first.
 ]
+
+[dependency-groups]
+dev = [
+    "cftime>=1.1.0",
+    "isodate>=0.6.1",
+    "jinja2>=2.7.3",
+    "lxml>=3.2.1",
+    "mocket>=3.13.3",
+    "myst-parser>=4.0.1",
+    "netcdf4>=1.6.4",
+    "numpydoc>=1.9.0",
+    "owslib>=0.8.3",
+    "packaging>=25.0",
+    "pendulum>=1.2.4",
+    "pydata-sphinx-theme>=0.16.1",
+    "pygeoif>=0.6",
+    "pyproj>=2.2.1",
+    "pytest>=2.9.0",
+    "pytest-vcr>=1.0.2",
+    "pyudunits2>=0.1",
+    "regex>=2017.7.28",
+    "requests>=2.2.1",
+    "requests-mock>=1.7.0",
+    "setuptools>=15.0",
+    "shapely>=1.7.1",
+    "validators>=0.14.2",
+]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+
+[tool.pixi.pypi-dependencies]
+compliance-checker = { path = ".", editable = true }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+
+[tool.pixi.tasks]
+
+[tool.pixi.feature.dev.dependencies]
+libnetcdf = ">=4.9.2,<5"
+pyproj = ">=3.7.2,<4"
+
+[tool.pixi.feature.dev.tasks]
+pytest = "pytest"
+
+[tool.pixi.dependencies]
+cf-units = ">=3.3.0,<4"
