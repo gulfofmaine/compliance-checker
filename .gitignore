@@ -114,3 +114,6 @@ coverage.xml
 # shpinx docs
 docs/source/generated/
 docs/source/quickintro.md
+# pixi environments
+.pixi/*
+!.pixi/config.toml
